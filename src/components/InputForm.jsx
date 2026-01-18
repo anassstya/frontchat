@@ -1,6 +1,8 @@
 import React, {useState} from "react";
 import "../App.scss";
 
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8051";
+
 export default function InputForm({ setMessages, isGenerating, setIsGenerating }) {
     const [input, setInput] = useState("");
 
@@ -29,7 +31,7 @@ export default function InputForm({ setMessages, isGenerating, setIsGenerating }
         }
 
         try {
-            const response = await fetch("/api/chat/message", {
+            const response = await fetch(`${API_URL}/api/chat/message`, {
                 method: "POST",
                 headers: {
                     "X-User-ID": userID,

@@ -3,6 +3,9 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "../App.scss";
 import { Link, useNavigate } from "react-router-dom";
 
+
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8051";
+
 export default function Register() {
     const navigate = useNavigate();
 
@@ -14,7 +17,7 @@ export default function Register() {
         e.preventDefault();
         setError("");
 
-        const res = await fetch("/api/auth/register", {
+        const res = await fetch(`${API_URL}/api/auth/register`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ email, password }),
