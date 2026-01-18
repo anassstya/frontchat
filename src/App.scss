@@ -1,0 +1,190 @@
+
+.chat-bubble{
+  font-size: 14px;
+  font-family: "Helvetica", serif;
+  display: inline-block;
+  padding: 10px 30px;
+  max-width: 60%;
+  overflow-wrap: break-word;
+  word-break: break-word;
+
+  @media(max-width: 768px){
+    padding: 10px 20px;
+  }
+
+  @media(max-width: 576px){
+    padding: 10px 15px;
+  }
+
+  p{
+    margin: 0;
+  }
+
+  &.user{
+    background-color: rgba(0, 0, 0, 0.2);
+    box-shadow: 0 1px 10px rgba(37, 99, 235, 0.5);
+    border-radius: 20px;
+    align-self: flex-end;
+    color: #fff;
+  }
+
+  &.llm{
+    color: #FFF;
+    align-self: flex-start;
+    background-color: transparent;
+    padding: 20px 0;
+  }
+}
+
+.chat-window{
+  width: 60%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 35px 20px;
+  height: 80vh;
+  overflow-y: auto;
+
+  @media(max-width: 768px){
+    width: 80vw;
+  }
+
+  @media(max-width: 576px){
+    width: 95vw;
+  }
+}
+
+.input-form{
+  display: flex;
+  width: 60%;
+  margin: 0 auto;
+  padding: 20px 0;
+  align-items: center;
+  gap: 10px;
+  font-family: "Helvetica", serif;
+
+
+  @media(max-width: 768px){
+    width: 80vw;
+  }
+
+  @media(max-width: 576px){
+    width: 90vw;
+  }
+
+  &__msg,
+  &__btn{
+    height: 40px;
+    box-sizing: border-box; // важно: высота включает padding+border
+    border-radius: 20px;
+  }
+
+  &__msg{
+    flex: 1;
+    padding: 0 22px;        // было 20px 22px → из-за этого инпут становился выше 40px
+    font-size: 14px;
+    line-height: 40px;      // чтобы текст был по центру по высоте
+    background-color: transparent;
+    border: 1.5px solid rgba(37, 99, 235, 0.5);
+    color: #fff;
+
+    &::placeholder {
+      color: rgba(255, 255, 255, 0.7);
+    }
+  }
+
+  &__btn{
+    padding: 0 18px;
+    font-size: 14px;
+    line-height: 40px;
+    border: 1.5px solid rgba(37, 99, 235, 0.5);
+    background: transparent;
+    color: #e5e7eb;
+    cursor: pointer;
+  }
+
+  &__btn:hover{
+    background-color: rgba(37, 99, 235, 0.2);
+  }
+}
+
+
+.navbar.bg-dark {
+  background-color: #050509 !important;
+  border-color: #1f2933 !important;
+}
+
+.badge.bg-primary-subtle {
+  background-color: rgba(37, 99, 235, 0.25) !important;
+}
+
+
+.btn-outline-primary{
+  border: 1px solid #fff	 !important;
+  background-color: transparent;
+  color: #fff !important;
+
+}
+
+.btn-outline-primary.dropdown-toggle.show {
+  background-color: rgba(37, 99, 235, 0.5) !important;
+  color: #fff !important;
+  border-color: #fff !important;
+}
+
+
+.btn-outline-primary:hover, .btn-outline-primary:focus {
+  background-color:  rgba(37, 99, 235, 0.5) !important;
+  color: #ffffff;
+}
+
+
+.dropdown-item:hover {
+  background-color:  rgba(37, 99, 235, 0.5) !important;
+  color: #ffffff;
+}
+
+//regist && login
+
+.register{
+  &__name{
+    color: rgba(37, 99, 235, 0.55) !important;
+  }
+
+  &__label{
+    color: #fff !important;
+  }
+
+  &__input{
+    border: 2px solid rgba(37, 99, 235, 0.8) !important;
+    background-color: transparent !important;
+    color: #fff !important;
+
+    &::placeholder{
+      color: rgba(255, 255, 255, 0.5) !important;
+    }
+  }
+
+  &__btn{
+    background-color: rgba(37, 99, 235, 0.55) !important;
+    border: none !important;
+
+    &:hover{
+      border: 1px solid #fff !important;
+      background-color: rgba(37, 99, 235, 0.3) !important;
+    }
+  }
+
+  &__text{
+    color: rgba(255, 255, 255, 0.5) !important;
+  }
+
+  &__link{
+    color:  rgba(37, 99, 235, 0.7) !important;
+
+    &:hover{
+      color:  rgba(37, 99, 235, 0.55) !important;
+    }
+  }
+}
