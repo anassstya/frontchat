@@ -4,10 +4,11 @@ import "../App.scss";
 import InputForm from "../components/InputForm.jsx";
 import Header from "../components/Header.jsx";
 
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8051";
+
 export default function ChatWindow() {
     const [messages, setMessages] = useState([]);
     const [isGenerating, setIsGenerating] = useState(false);
-
 
     useEffect(() => {
         const userID = localStorage.getItem("userID");
@@ -20,7 +21,7 @@ export default function ChatWindow() {
             return;
         }
 
-        fetch("/api/chat/history", {
+        fetch(`${API_URL}/api/chat/history`, {
             headers: {
                 "X-User-ID": userID
             }
@@ -31,7 +32,7 @@ export default function ChatWindow() {
             })
             .then(history => {
                 setMessages(history.map(msg => ({
-                    type: msg.role === "user" ? "user" : "llm",  // БД → фронт
+                    type: msg.role === "user" ? "user" : "llm",
                     text: msg.content
                 })));
             })
@@ -44,7 +45,6 @@ export default function ChatWindow() {
                 setMessages(initialMessages);
             });
     }, []);
-
 
     return (
         <>
