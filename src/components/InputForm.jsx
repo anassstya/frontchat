@@ -31,55 +31,85 @@ export default function InputForm({ setMessages, isGenerating, setIsGenerating }
         }
 
         try {
-            const response = await fetch(`${API_URL}/api/chat/message`, {
-                method: "POST",
-                headers: {
-                    "X-User-ID": userID,
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({ message: userMessage })
-            });
+            const response = await fetch(
+                `${API_URL}/api/chat/message?message=${encodeURIComponent(userMessage)}`,
+                {
+                    method: "GET",
+                    headers: {
+                        "X-User-ID": userID
+                    }
+                }
+            );
 
             if (!response.ok) throw new Error("Chat API failed");
 
             const reader = response.body.getReader();
             const decoder = new TextDecoder();
             let botReply = "";
+            let isDone = false;
 
             while (true) {
                 const { done, value } = await reader.read();
-                if (done) break;
+                if (done || isDone) break;
 
                 const chunk = decoder.decode(value, { stream: true });
                 const lines = chunk.split('\n');
 
                 for (const line of lines) {
                     if (line.startsWith('data: ')) {
-                        const data = line.slice(6);
+                        const data = line.slice(6).trim();
+
                         if (data === '[DONE]') {
-                            reader.cancel();
                             setIsGenerating(false);
+                            isDone = true;
                             break;
                         }
+
                         if (data) {
-                            botReply += data;
-                            setMessages((prev) => {
-                                const newMessages = [...prev];
-                                newMessages[newMessages.length - 1] = {
-                                    type: "llm",
-                                    text: botReply
-                                };
-                                return newMessages;
-                            });
+                            try {
+                                const parsed = JSON.parse(data);
+                                if (parsed.delta) {
+                                    botReply += parsed.delta;
+                                    setMessages((prev) => {
+                                        const newMessages = [...prev];
+                                        newMessages[newMessages.length - 1] = {
+                                            type: "llm",
+                                            text: botReply
+                                        };
+                                        return newMessages;
+                                    });
+                                } else if (parsed.error) {
+                                    console.error("Backend error:", parsed.error);
+                                    setMessages((prev) => {
+                                        const newMessages = [...prev];
+                                        newMessages[newMessages.length - 1] = {
+                                            type: "llm",
+                                            text: `Error: ${parsed.error}`
+                                        };
+                                        return newMessages;
+                                    });
+                                    setIsGenerating(false);
+                                    isDone = true;
+                                    break;
+
+                                }
+                            } catch (err) {
+                                console.error("Failed to parse SSE data:", data, err);
+                            }
                         }
                     }
                 }
             }
         } catch (err) {
             console.error("Chat error:", err);
+            setMessages((prev) => [
+                ...prev,
+                { type: "llm", text: "Error: Failed to get response" }
+            ]);
             setIsGenerating(false);
         }
     };
+
 
 
     return (
