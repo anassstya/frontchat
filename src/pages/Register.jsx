@@ -37,7 +37,7 @@ export default function Register() {
 
     return (
         <div className="register min-vh-100 d-flex justify-content-center align-items-center px-1">
-            <div style={{ width: 420 }}>
+            <div style={{ width: 320 }}>
                 <h1 className="register__name h3 mb-4">Registration</h1>
 
                 <form onSubmit={handleSubmit} style={{ maxWidth: 320 }}>
