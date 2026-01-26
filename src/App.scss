@@ -76,15 +76,15 @@
   &__msg,
   &__btn{
     height: 40px;
-    box-sizing: border-box; // важно: высота включает padding+border
+    box-sizing: border-box;
     border-radius: 20px;
   }
 
   &__msg{
     flex: 1;
-    padding: 0 22px;        // было 20px 22px → из-за этого инпут становился выше 40px
+    padding: 0 22px;
     font-size: 16px;
-    line-height: 40px;      // чтобы текст был по центру по высоте
+    line-height: 40px;
     background-color: transparent;
     border: 1.5px solid rgba(37, 99, 235, 0.5);
     color: #fff;
@@ -148,6 +148,8 @@
 //regist && login
 
 .register{
+
+
   &__name{
     color: rgba(37, 99, 235, 0.55) !important;
   }
