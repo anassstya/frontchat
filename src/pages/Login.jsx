@@ -42,10 +42,10 @@ export default function Login() {
 
     return (
         <div className="register min-vh-100 d-flex justify-content-center align-items-center">
-            <div style={{ width: 420 }}>
+            <div style={{ width: 320 }}>
                 <h1 className="register__name h3 mb-4">Sign in</h1>
 
-                <form onSubmit={handleSubmit} style={{ maxWidth: 420 }}>
+                <form onSubmit={handleSubmit} style={{ maxWidth: 320 }}>
 
                     <div className="mb-3">
                         <label className="register__label form-label">Email</label>
