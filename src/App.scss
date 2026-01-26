@@ -83,7 +83,7 @@
   &__msg{
     flex: 1;
     padding: 0 22px;        // было 20px 22px → из-за этого инпут становился выше 40px
-    font-size: 14px;
+    font-size: 16px;
     line-height: 40px;      // чтобы текст был по центру по высоте
     background-color: transparent;
     border: 1.5px solid rgba(37, 99, 235, 0.5);
